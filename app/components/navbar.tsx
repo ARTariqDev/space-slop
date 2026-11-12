@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const NAV_LINKS = [
-  { label: "Overview", href: "#overview" },
-  { label: "Tactical Console", href: "#viewport" },
-  { label: "Sensors & Fusion", href: "#sensors" },
-  { label: "Performance", href: "#performance" },
-  { label: "Specifications", href: "#specs" },
-];
+import Link from "next/link";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,51 +19,63 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#000000]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+          ? "bg-[#000000]/85 backdrop-blur-xl border-b border-white/[0.08]"
           : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-5 lg:px-8">
         {/* Brand */}
-        <a
-          href="#overview"
-          className="group flex items-center gap-2.5 text-sm font-semibold tracking-tight text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff552e]"
-          aria-label="Fire-Slop Homepage"
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 text-sm font-semibold tracking-tight text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff552e]"
+          aria-label="Fire-Slop Home"
         >
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#ff552e] text-[11px] font-black text-black">
+          <span className="flex h-5 w-5 items-center justify-center rounded bg-[#ff552e] text-[10px] font-black text-black">
             ▲
           </span>
-          <span className="font-semibold tracking-wider text-[13px] uppercase text-zinc-100 group-hover:text-white transition">
-            Fire-Slop <span className="text-zinc-500 font-normal">Intelligence</span>
+          <span className="font-semibold tracking-wider text-[13px] uppercase text-zinc-100">
+            Fire-Slop
           </span>
-        </a>
+        </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Main Navigation">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-[13px] text-zinc-400 transition hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#ff552e]"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Streamlined Desktop Navigation */}
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Main Navigation">
+          <Link
+            href="/map"
+            className="flex items-center gap-1.5 text-[13px] font-medium text-white transition hover:text-[#ff7a45] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#ff552e]"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#ff552e] animate-pulse" />
+            <span>Live 3D Map</span>
+          </Link>
+          <Link
+            href="/#viewport"
+            className="text-[13px] text-zinc-400 transition hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#ff552e]"
+          >
+            Tactical Console
+          </Link>
+          <Link
+            href="/#sensors"
+            className="text-[13px] text-zinc-400 transition hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#ff552e]"
+          >
+            MODIS & VIIRS Fusion
+          </Link>
+          <Link
+            href="/#specs"
+            className="text-[13px] text-zinc-400 transition hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#ff552e]"
+          >
+            Specifications
+          </Link>
         </nav>
 
-        {/* Right CTA & Telemetry status */}
-        <div className="hidden items-center gap-4 md:flex">
-          <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/40 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>9 Sats In Orbit</span>
-          </div>
-
-          <a
-            href="#request-access"
-            className="inline-flex h-8 items-center justify-center rounded-full bg-white px-4 text-[12px] font-medium text-black transition hover:bg-zinc-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff552e]"
+        {/* Primary CTA */}
+        <div className="hidden items-center gap-3 md:flex">
+          <Link
+            href="/map"
+            className="inline-flex h-8 items-center justify-center gap-1.5 rounded-full bg-[#ff552e] px-4 text-[12px] font-semibold text-black transition hover:bg-[#ff6e4a] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            Request Access
-          </a>
+            <span>Open 3D Map</span>
+            <span className="text-[10px]">↗</span>
+          </Link>
         </div>
 
         {/* Mobile menu button */}
@@ -95,24 +100,43 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="border-b border-white/[0.08] bg-black/95 px-5 py-6 backdrop-blur-2xl md:hidden">
           <nav className="flex flex-col space-y-4">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-base text-zinc-300 transition hover:text-white"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="pt-4 border-t border-white/[0.08]">
-              <a
-                href="#request-access"
+            <Link
+              href="/map"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2 text-base font-medium text-white"
+            >
+              <span className="h-2 w-2 rounded-full bg-[#ff552e]" />
+              <span>Live 3D Map (MODIS & VIIRS)</span>
+            </Link>
+            <Link
+              href="/#viewport"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-base text-zinc-300 transition hover:text-white"
+            >
+              Tactical Console
+            </Link>
+            <Link
+              href="/#sensors"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-base text-zinc-300 transition hover:text-white"
+            >
+              Sensors & Orbit Data
+            </Link>
+            <Link
+              href="/#specs"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-base text-zinc-300 transition hover:text-white"
+            >
+              Specifications
+            </Link>
+            <div className="pt-3 border-t border-white/[0.08]">
+              <Link
+                href="/map"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex h-11 w-full items-center justify-center rounded-full bg-[#ff552e] text-sm font-semibold text-black"
               >
-                Request Agency Access
-              </a>
+                Launch 3D Map Console
+              </Link>
             </div>
           </nav>
         </div>
@@ -120,4 +144,3 @@ export function Navbar() {
     </header>
   );
 }
-

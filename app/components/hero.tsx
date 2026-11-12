@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 
 export function Hero() {
@@ -102,19 +103,19 @@ export function Hero() {
           ref={ctaRef}
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <a
-            href="#viewport"
+          <Link
+            href="/map"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#ff552e] px-7 text-sm font-semibold text-black transition-all hover:bg-[#ff6e4a] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <span>Explore Tactical Viewport</span>
-            <span className="text-xs">↓</span>
-          </a>
+            <span>Launch Live 3D Map</span>
+            <span className="text-xs">↗</span>
+          </Link>
 
           <a
-            href="#request-access"
+            href="#viewport"
             className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 bg-white/[0.03] px-7 text-sm font-medium text-zinc-200 transition-all hover:bg-white/[0.08] hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff552e]"
           >
-            Request Command Briefing
+            Explore Tactical Viewport ↓
           </a>
         </div>
 
